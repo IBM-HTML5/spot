@@ -1,0 +1,218 @@
+<div class="container my-4">
+  
+  <!-- Navegación -->
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active">Iniciativa</li>
+  </ol>
+
+
+
+  <!-- Botonera Superior -->
+  <div class="row mr-0">
+    <button class="btn btn-warning btn-sm ml-auto mr-2 cursor" routerLink="/nueva-iniciativa">Nueva Iniciativa</button>
+    <button class="btn btn-secondary btn-sm mr-2 cursor"> <i class="fa fa-graduation-cap" aria-hidden="true"></i> </button>
+    <button class="btn btn-secondary btn-sm cursor"> <i class="fa fa-arrows-alt" aria-hidden="true"></i> </button>    
+  </div>
+
+  <!-- Carga Spinner mientras se cargan los datos de la Tabla -->
+  <div *ngIf="cargando" class="my-5">
+    <div class="cargando ml-auto mr-auto"></div>
+    <div class="text-center mt-2">cargando datos ...</div>
+  </div>
+
+  <!-- Tabla Principal [DataTable] -->
+  <div *ngIf="!cargando" class="my-5">
+    <table datatable [dtOptions]="dtOptions" class="table">
+      <thead>
+        <tr class="fz">
+          <th>Nro</th>
+          <th>Ejecutivo Responsable</th>
+          <th>Iniciativa</th>
+          <th class="no-sort" name="prop_ref_no">Def.</th>
+          <th class="no-sort" name="prop_ref_no">Plan</th>
+          <th class="no-sort" name="prop_ref_no">Con.</th>
+          <th class="no-sort" name="prop_ref_no">Pru.</th>
+          <th class="no-sort" name="prop_ref_no">Ent.</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="fz" *ngFor="let dato of datosTablaIni">
+          <td width="30">{{ dato.num }}</td>
+          <td width="200" class="fz-ej">{{ dato.ejecutivo | diccionario:true }}</td> <!--| diccionario -->
+          <td width="320" routerLink="/ficha-iniciativa/{{dato.id}}">
+            <div class="cursor">
+              {{ dato.iniciativa | textoCorto:0:190 | diccionario:true }} <!--  -->
+              <div class="ver-mas text-right"> [ver ficha] </div>              
+            </div> 
+          </td>
+          <td width="80">
+            <!-- Barra de progreso definición-->
+            <div class="">
+              <div routerLink="/etapa-definicion/{{dato.id}}" class="cursor" [title]="'Etapa Definición: ' + dato.def">
+                <div class="text-progress">{{dato.def}}</div>
+                <div class="progress">  
+                  <div class="progress-bar bg-progress" role="progressbar" [style.width]="dato.def" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+              </div>
+              <!-- I C O N O S -->
+              <div class="row">
+                <!-- Punto de Atención Definición -->
+                <div class="text-left col-2 mt-1 cursor" *ngIf="dato.ptoAteDef && dato.ptoAteDef=='warning'" routerLink="/">
+                  <i class="fa fa-exclamation-circle icon-atencion-warning" aria-hidden="true" [title]="ptoAte"></i>
+                </div>
+                <div class="text-left col-2 mt-1 cursor" *ngIf="dato.ptoAteDef && dato.ptoAteDef=='danger'" routerLink="/">
+                  <i class="fa fa-exclamation-circle icon-atencion-danger" aria-hidden="true" [title]="ptoAte"></i>
+                </div>
+                <!-- Con Actividad Definición (?) -->               
+                <div class="text-right col-2 cursor" *ngIf="dato.conActDef">
+                  <div class="icon-question" [title]="conAct" style="color:#e74c3c;">
+                    ?
+                  </div>
+                </div> 
+                <!-- Sin Actividad Definición (?) -->               
+                <div class="text-right col-2 ml-auto" *ngIf="dato.sinActDef">
+                  <div class="icon-question" [title]="sinAct">
+                    ?
+                  </div>
+                </div>
+              </div> 
+            </div>
+          </td>
+          <td width="80"> 
+            <!-- Barra de progreso plan-->
+            <div class="">
+                <div routerLink="/etapa-plan/{{dato.id}}" class="cursor" [title]="'Etapa Plan: ' + dato.plan">
+                  <div class="text-progress">{{dato.plan}}</div>
+                  <div class="progress">
+                    <div class="progress-bar bg-progress" role="progressbar" [style.width]="dato.plan" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+                <!-- I C O N O S -->
+                <div class="row">
+                  <!-- Punto de Atención Plan -->
+                  <div class="text-left col-2 mt-1 cursor" *ngIf="dato.ptoAtePlan && dato.ptoAtePlan=='warning'" routerLink="/">
+                    <i class="fa fa-exclamation-circle icon-atencion-warning" aria-hidden="true" [title]="ptoAte"></i>
+                  </div>
+                  <div class="text-left col-2 mt-1 cursor" *ngIf="dato.ptoAtePlan && dato.ptoAtePlan=='danger'" routerLink="/">
+                    <i class="fa fa-exclamation-circle icon-atencion-danger" aria-hidden="true" [title]="ptoAte"></i>
+                  </div>
+                  <!-- Con Actividad Plan (?) -->               
+                  <div class="text-right col-2 cursor" *ngIf="dato.conActPlan">
+                    <div class="icon-question" [title]="conAct" style="color:#e74c3c;">
+                      ?
+                    </div>
+                  </div>  
+                  <!-- Sin Actividad Plan -->               
+                  <div class="text-right col-2 ml-auto" *ngIf="dato.sinActPlan">
+                    <div class="icon-question" [title]="sinAct">
+                      ?
+                    </div>
+                  </div>
+                </div> 
+            </div>
+          </td>
+          <td width="80">
+            <!-- Barra de progreso construcción-->
+            <div class="">
+              <div routerLink="/etapa-construccion/{{dato.id}}" class="cursor" [title]="'Etapa Construcción: ' + dato.con">
+                <div class="text-progress">{{dato.con}}</div>
+                <div class="progress">
+                  <div class="progress-bar bg-progress" role="progressbar" [style.width]="dato.con" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>              
+                </div>               
+              </div>
+              <!-- I C O N O S -->
+              <div class="row">
+                <!-- Punto de Atención Construcción -->
+                <div class="text-left col-2 mt-1 cursor" *ngIf="dato.ptoAteCon && dato.ptoAteCon=='warning'" routerLink="/">
+                  <i class="fa fa-exclamation-circle icon-atencion-warning" aria-hidden="true" [title]="ptoAte"></i>
+                </div>
+                <div class="text-left col-2 mt-1 cursor" *ngIf="dato.ptoAteCon && dato.ptoAteCon=='danger'" routerLink="/">
+                  <i class="fa fa-exclamation-circle icon-atencion-danger" aria-hidden="true" [title]="ptoAte"></i>
+                </div>
+                <!-- Con Actividad Construcción (?) -->               
+                <div class="text-right col-2 cursor" *ngIf="dato.conActCon">
+                  <div class="icon-question" [title]="conAct" style="color:#e74c3c;">
+                    ?
+                  </div>
+                </div>  
+                <!-- Sin Actividad Construcción -->               
+                <div class="text-right col-2 ml-auto" *ngIf="dato.sinActCon">
+                  <div class="icon-question" [title]="sinAct">
+                    ?
+                  </div>
+                </div>
+              </div>
+            </div>          
+          </td>
+          <td width="80">
+            <!-- Barra de progreso pruebas-->
+            <div class="">
+                <div routerLink="/etapa-pruebas/{{dato.id}}" class="cursor" [title]="'Etapa Pruebas: ' + dato.pru">
+                  <div class="text-progress">{{dato.pru}}</div>
+                  <div class="progress">
+                    <div class="progress-bar bg-progress" role="progressbar" [style.width]="dato.pru" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>                            
+                  </div>
+                </div>
+                <!-- I C O N O S -->
+                <div class="row">
+                  <!-- Punto de Atención Pruebas -->
+                  <div class="text-left col-2 mt-1 cursor" *ngIf="dato.ptoAtePru && dato.ptoAtePru=='warning'" routerLink="/">
+                      <i class="fa fa-exclamation-circle icon-atencion-warning" aria-hidden="true" [title]="ptoAte"></i>
+                    </div>
+                    <div class="text-left col-2 mt-1 cursor" *ngIf="dato.ptoAtePru && dato.ptoAtePru=='danger'" routerLink="/">
+                      <i class="fa fa-exclamation-circle icon-atencion-danger" aria-hidden="true" [title]="ptoAte"></i>
+                    </div>
+                  <!-- Con Actividad Pruebas (?) -->               
+                  <div class="text-right col-2 cursor" *ngIf="dato.conActPru">
+                    <div class="icon-question" [title]="conAct" style="color:#e74c3c;">
+                      ?
+                    </div>
+                  </div>   
+                  <!-- Sin Actividad Pruebas -->               
+                  <div class="text-right col-2 ml-auto" *ngIf="dato.sinActPru">
+                    <div class="icon-question" [title]="sinAct">
+                      ?
+                    </div>
+                  </div>
+                </div>               
+            </div>
+          </td>
+          <td width="80">
+            <!-- Barra de progreso entrega-->
+            <div class="">
+                <div routerLink="/etapa-entrega/{{dato.id}}" class="cursor" [title]="'Etapa Entrega: ' + dato.ent">
+                  <div class="text-progress">{{dato.ent}}</div>
+                  <div class="progress">
+                    <div class="progress-bar bg-progress" role="progressbar" [style.width]="dato.ent" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>                            
+                  </div>
+                </div>
+                <!-- I C O N O S -->
+                <div class="row">
+                  <!-- Punto de Atención Entrega -->
+                  <div class="text-left col-2 mt-1 cursor" *ngIf="dato.ptoAteEnt && dato.ptoAteEnt=='warning'" routerLink="/">
+                    <i class="fa fa-exclamation-circle icon-atencion-warning" aria-hidden="true" [title]="ptoAte"></i>
+                  </div>
+                  <div class="text-left col-2 mt-1 cursor" *ngIf="dato.ptoAteEnt && dato.ptoAteEnt=='danger'" routerLink="/">
+                    <i class="fa fa-exclamation-circle icon-atencion-danger" aria-hidden="true" [title]="ptoAte"></i>
+                  </div>
+                  <!-- Con Actividad Entrega (?) -->               
+                  <div class="text-right col-2 cursor" *ngIf="dato.conActEnt">
+                    <div class="icon-question" [title]="conAct" style="color:#e74c3c;">
+                      ?
+                    </div>
+                  </div>  
+                  <!-- Sin Actividad Entrega -->               
+                  <div class="text-right col-2 ml-auto" *ngIf="dato.sinActEnt">
+                    <div class="icon-question" [title]="sinAct">
+                      ?
+                    </div>
+                  </div>
+                </div> 
+            </div>
+          </td>                           
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>

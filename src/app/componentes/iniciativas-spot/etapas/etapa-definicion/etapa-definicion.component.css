@@ -1,0 +1,76 @@
+.cursor{
+    cursor: pointer;
+}
+
+.hr-s{
+    border-bottom: 0.1px solid rgba(255, 255, 255, 0.01);
+    border-style: dashed;
+}
+.bt{
+    border: 1px solid rgba(22, 177, 35, 0.2); 
+    border-style: dashed;
+    background: rgba(26, 188, 156, 0.1);
+}
+.bt2{
+    border: 1px solid rgba(22, 177, 35, 0.2); 
+    border-style: dashed;
+    background: rgba(255, 220, 144, 0.1);
+}
+.fz-1{
+    font-size: 16px;
+    font-weight: 600;
+}
+.fz{
+    font-size: 14px;
+}
+.fz-ej{
+    font-size: 12px;
+    font-weight: 600;
+}
+.height{
+    height: 170px;
+}
+
+/* Punto de Atención */
+.punto-atencion{
+    width: 20px;
+    height: 20px;
+    border: 1px solid;
+    border-style: dashed;
+    cursor: pointer;
+}
+.punto-atencion:hover{
+    border-color: #c20606;
+}
+@keyframes rotate {from {transform: rotate(0deg);}
+to {transform: rotate(360deg);}}
+@-webkit-keyframes rotate {from {-webkit-transform: rotate(0deg);}
+to {-webkit-transform: rotate(360deg);}}
+.rotar-p:hover{
+    -webkit-animation: 5s rotate linear infinite;
+    animation: 5s rotate linear infinite;
+    -webkit-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+}
+
+  /* SPINNER */
+
+  .cargando {
+    border: 8px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 8px solid #f0ad4e;
+    width: 60px;
+    height: 60px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+  }
+  
+  @-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }

@@ -1,0 +1,209 @@
+<div class="container my-4">
+
+  <!-- Navegación -->
+  <ol class="breadcrumb">
+    <a class="breadcrumb-item" routerLink="/">Iniciativa</a>
+    <a class="breadcrumb-item active">Ficha Iniciativa</a>
+  </ol>
+
+<!-- Formulario -->
+<form class="my-5" [formGroup]="editDatosIniSpotForm" (ngSubmit)="enviarForm()">
+  <h2>Ficha de la Iniciativa</h2>
+  <hr>
+
+  <!-- Número / Lineamiento Estratégico / Ámbito -->
+  <div class="row">
+    <div class="col-sm-12 col-lg-2">
+      <label for="numero" class="fz">
+        Número
+      </label>
+      <input type="text" class="form-control" placeholder="#" id ="nro" formControlName="nro" [(ngModel)]="datoIni.nro">
+    </div>
+    <div class="col-sm-12 col-lg-5">
+      <label for="" class="fz">
+        Lineamiento Estratégico
+        <i class="fa fa-check-circle check" aria-hidden="true" *ngIf="editDatosIniSpotForm.controls.lin.valid && editDatosIniSpotForm.controls.lin.touched"></i>          
+      </label>
+      <select class="form-control" id="exampleSelect1" formControlName="lin" [(ngModel)]="datoIni.lin">
+        <option value="-1" disabled>Seleccione un Lineamiento Estratégico</option>
+        <option value="1"> Aumentar el uso del ecosistema de terceros </option>
+        <option value="2"> Aumentar la Estabilidad de los sistemas </option>
+        <option value="3"> Gestionar la Arquitectura Empresarial </option>
+        <option value="4"> Potenciar el Proceso de Desarrollo </option>
+      </select>
+    </div>
+    <div class="col-sm-12 col-lg-5">
+      <label for="" class="fz">
+        Ámbito
+        <i class="fa fa-check-circle check" aria-hidden="true" *ngIf="editDatosIniSpotForm.controls.amb.valid && editDatosIniSpotForm.controls.amb.touched"></i>
+      </label>
+      <select class="form-control" id="exampleSelect1" formControlName="amb" [(ngModel)]="datoIni.amb">
+        <option value="-1" disabled>Seleccione un Ámbito</option>
+        <option value="5">"Agilizar" el Proceso de Desarrollo</option>
+        <option value="9">Aumentar la calidad del desarrollo</option>
+        <option value="12">Gestionar ambientes pre-productivos</option>
+        <option value="1">Mejorar proceso de Gestión de Demanda</option>
+        <option value="13">Modelar la integración de los sistemas actuales y las nuevas capacidades</option>
+        <option value="2">Optimización continua de sistemas</option>
+        <option value="6">Potenciar la "adopción" de soluciones de mercado y Plataformas como servicio</option>
+        <option value="4">Potenciar la Arquitectura Empresarial</option>
+        <option value="10">Rediseño de la Arquitectura de Datos</option>
+        <option value="7">Rediseño de la Arquitectura de Sistemas</option>
+        <option value="11">Ser efectivamente 24/7</option>
+        <option value="8">Sistematizar la renovación de sistemas</option>
+        <option value="3">Tercerización a Fábricas</option>
+      </select>
+    </div>
+  </div>
+
+  <hr class="hr-s">
+  <!-- Iniciativa -->
+  <div class="my-3">
+    <label for="" class="fz">Iniciativa</label>
+    <textarea class="form-control" placeholder="Nombre Iniciativa" id="nom" formControlName="nom" [ngModel]="datoIni.nom | diccionario:true" maxlength="500"></textarea>
+  </div>
+
+  <hr class="hr-s">
+  <!-- Descripción -->
+  <div class="my-3">
+    <label for="" class="fz">Descripción</label>
+    <textarea class="form-control" placeholder="Descripción" formControlName="des" [ngModel]="datoIni.des | diccionario:true" maxlength="1900"></textarea>
+  </div>
+
+  <hr class="hr-s">
+  <!-- Encargados de la Iniciativa -->
+  <div class="my-3">
+    <label for="" class="fz">Encargados de la Iniciativa </label>
+    <div class="row">
+      <div class="col-sm-12 col-lg-4">
+        <p class="" style="font-size:14px;">Busqueda de integrantes de la iniciativa: </p>
+        <input type="text" class="form-control" placeholder="Nombre/Alias del encargado a buscar">
+      </div>
+      <div class="col-sm-12 col-lg-8">
+        <p class="mres" style="font-size:14px;">Integrantes Encontrado: </p>
+        <table class="table table-hover">
+          <thead class="">
+            <tr class="fz-tb">
+              <th>Integrante</th>
+              <th>Tipo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Otto</td>
+              <td>@mdo</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-12">
+          <p class="" style="font-size:14px;">Integrantes Asociados: </p>
+          <table class="table table-hover">
+            <thead class="">
+              <tr class="fz-tb">
+                <th>Integrante</th>
+                <th>Tipo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Otto</td>
+                <td>@mdo</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+    </div>
+  </div>
+
+  <hr class="hr-s">
+  <!-- Objetivos -->
+  <div class="my-3">
+      <label for="" class="fz">Objetivos</label>
+      <textarea class="form-control" placeholder="Objetivos" formControlName="obj" [ngModel]="datoIni.obj | diccionario:true" maxlength="1900"></textarea>
+  </div>
+
+  <hr class="hr-s">
+  <!-- Alcance de la iniciativa -->
+  <div class="my-3">
+      <label for="" class="fz">Alcance de la iniciativa</label>
+      <textarea class="form-control" placeholder="Alcance de la iniciativa" formControlName="alc" [ngModel]="datoIni.alc | diccionario:true" maxlength="1900"></textarea>
+  </div>
+
+  <hr class="hr-s">
+  <!-- Situación actual -->
+  <div class="my-3">
+      <label for="" class="fz">Situación actual</label>
+      <textarea class="form-control" placeholder="Situación actual" formControlName="sitact" [ngModel]="datoIni.sitact | diccionario:true" maxlength="1900"></textarea>
+  </div>
+
+  <hr class="hr-s">
+  <!-- Situación futura -->
+  <div class="my-3">
+      <label for="" class="fz">Situación futura</label>
+      <textarea class="form-control" placeholder="Situación futura" formControlName="sitftr" [ngModel]="datoIni.sitftr | diccionario:true" maxlength="1900"></textarea>
+  </div>
+
+  <hr class="hr-s">
+  <!-- Necesidades -->
+  <div class="my-3">
+      <label for="" class="fz">Necesidades</label>
+      <textarea class="form-control" placeholder="Necesidades" formControlName="nec" [ngModel]="datoIni.nec | diccionario:true" maxlength="1900"></textarea>
+  </div>
+
+  <hr class="hr-s">
+  <!-- Plan de acción -->
+  <div class="my-3">
+      <label for="" class="fz">Plan de acción</label>
+      <textarea class="form-control" placeholder="Plan de acción" formControlName="plnacc" [ngModel]="datoIni.plnacc | diccionario:true" maxlength="1900"></textarea>
+  </div>
+
+  <hr class="hr-s">
+  <!-- Impactos -->
+  <div class="my-3">
+      <label for="" class="fz">Impactos</label>
+      <textarea class="form-control" placeholder="Impactos" formControlName="imp" [ngModel]="datoIni.imp | diccionario:true" maxlength="1900"></textarea>
+  </div>
+
+  <hr class="hr-s">
+  <!-- Gerencias de la GDOS involucradas -->
+  <div class="my-3">
+      <label for="" class="fz">Gerencias de la GDOS involucradas</label>
+      <textarea class="form-control" placeholder="Gerencias de la GDOS involucradas" formControlName="gragdos" [ngModel]="datoIni.gragdos | diccionario:true" maxlength="1900"></textarea>
+  </div>
+
+  <hr class="hr-s">
+  <!-- Beneficios cuantitativos -->
+  <div class="my-3">
+      <label for="" class="fz">Beneficios cuantitativos</label>
+      <textarea class="form-control" placeholder="Beneficios cuantitativos" formControlName="bencua" [ngModel]="datoIni.bencua | diccionario:true" maxlength="1900"></textarea>
+  </div>
+
+  <hr class="hr-s">
+  <!-- Costos involucrados -->
+  <div class="my-3">
+      <label for="" class="fz">Costos involucrados</label>
+      <textarea class="form-control" placeholder="Costos involucrados" formControlName="cosin" [ngModel]="datoIni.cosin | diccionario:true" maxlength="1900"></textarea>
+  </div>
+
+  <hr class="hr-s">
+  <!-- Botonera -->
+  <div class="row my-3 mr-0">
+    <a class="btn btn-secondary ml-auto mr-2" href="javascript:void(0)" (click)="validarVolver();"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+    <button class="btn btn-warning" [disabled]="!editDatosIniSpotForm.valid">Actualizar Iniciativa <i class="fa fa-floppy-o" aria-hidden="true"></i></button>      
+  </div>
+
+  <div *ngIf="!editDatosIniSpotForm.valid" class="my-2">
+      <div class="alert alert-danger" role="alert">
+        <strong>Debe completar todos los campos obligatorios!</strong> 
+        <div class="ml-5 mt-3">
+          <div *ngIf="!editDatosIniSpotForm.controls.lin.valid">• Debe seleccionar un <strong>Lineamiento Estrategico</strong></div>
+          <div *ngIf="!editDatosIniSpotForm.controls.amb.valid">• Debe seleccionar un <strong>Ámbito</strong></div>
+          <div *ngIf="!editDatosIniSpotForm.controls.nom.valid">• Debe ingresar la <strong>Iniciativa</strong></div>            
+        </div>
+      </div>
+  </div>
+
+</form>
+
+</div>

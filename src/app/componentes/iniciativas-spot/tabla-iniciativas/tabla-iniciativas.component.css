@@ -1,0 +1,83 @@
+.cursor{
+    cursor: pointer;
+}
+.fz{
+    font-size: 14px;
+}
+.fz-ej{
+    font-size: 12px;
+    font-weight: 600;
+}
+.icon-atencion-warning{
+    font-size: 20px;
+    color: #f1c40f;
+}
+.icon-atencion-danger{
+    font-size: 20px;
+    color: #e74c3c;
+}
+.icon-question{
+    font-weight: 700;
+    font-size: 20px;
+    /*cursor: context-menu;*/
+}
+.ver-mas{
+    font-size: 12px;
+    font-weight: 600;
+    color: rgb(230, 230, 230);
+    transition: color 0.5s ease;
+    margin-bottom: -8px;
+}
+.ver-mas:hover{
+    transition: color 0.5s ease;
+    color: rgb(231, 76, 60);
+}
+
+/* Borde aplicado a dato.iniciativa*/
+.border-plan{
+    border: 0.5px solid rgba(0, 0, 0, 0.2);
+    border-style: dashed;
+    padding: 0px 5px;
+    cursor: pointer;
+}
+.border-plan:hover{
+    border: 0.5px solid rgba(0, 0, 0, 0.6);
+    border-style: dashed;
+    padding: 0px 5px;
+}
+.progress:hover{
+    cursor: pointer;
+}
+.bg-progress{
+    background-color: #5cb85c !important;
+}
+.bg-progress:hover{
+    background-color: #67d167 !important;  
+}
+.text-progress{  
+    margin-bottom: -1.1rem;
+    position: relative;
+    text-align: center;
+}
+
+  /* SPINNER */
+
+  .cargando {
+    border: 8px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 8px solid #f0ad4e;
+    width: 60px;
+    height: 60px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+  }
+  
+  @-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }

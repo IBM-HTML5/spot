@@ -1,0 +1,56 @@
+<div class="container my-4">
+    
+  <!-- Navegación -->
+  <ol class="breadcrumb">
+    <a class="breadcrumb-item" routerLink="/">Iniciativa</a>
+    <a class="breadcrumb-item" routerLink="/etapa-definicion">Etapa Definición</a>
+    <a class="breadcrumb-item active">Puntos de Atención de la Tarea</a>
+  </ol>
+  
+  <!-- Iniciativa -->
+  <div class="mt-5 mb-4">
+    <h4>Iniciativa:</h4>
+    <p>• Sistematizar la función de optimización de sistemas</p>
+    <h4>Tarea:</h4>
+    <p>• Revisar lo realizado a la fecha</p>      
+  </div>
+  <hr class="hr-s">
+
+  <!-- Editar Etapa Definición -->
+  <div class="my-4">
+      <h4>Puntos de atención de la tarea en la etapa "Definición"</h4>
+  </div>
+
+  <div class="alert alert-warning p-3">
+      <div class="mx-2">
+          <div class="">
+              <label for="Fecha Inicio" class="fz-1"> Nombre del punto de atención </label>
+              <input type="text" class="form-control" placeholder="Nombre del punto de atención" >
+          </div>
+          <div class="mt-2">
+              <label for="Fecha Inicio" class="fz-1"> Detalle del punto de atención </label>
+              <textarea type="text" class="form-control" placeholder="Descripción / Detalle del punto de atención" ></textarea>
+          </div>
+          <div class="mt-2">
+              <label for="Fecha Inicio" class="fz-1"> Propuesta de mitigación </label>
+              <textarea type="text" class="form-control" placeholder="Propuesta de mitigación" ></textarea>
+          </div>
+      </div>
+      <div class="row px-2">
+          <div class="col-3 m-0 mt-3">
+              <label for="Fecha Inicio" class="fz-1 mr-4"> Criticidad: </label>
+              <input class="" type="radio" value="1"> <i class="fa fa-exclamation-circle text-danger fa-lg mr-2" aria-hidden="true"></i>
+              <input class="" type="radio" value="1"> <i class="fa fa-exclamation-circle text-warning fa-lg mr-2" aria-hidden="true"></i>
+          </div>
+          <div class="col-6 m-0 mt-3">
+              <label for="Fecha Inicio" class="fz-1 mr-4"> Propuesta de mitigación: </label>
+              <input class="" type="radio" value="1"> Abierto
+              <input class="" type="radio" value="1"> Cerrado
+          </div>
+          <div class="col-3 row m-0 mt-3">
+              <button class="btn btn-warning btn-sm ml-auto mr-2"> Guardar <i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+              <button class="btn btn-secondary btn-sm mr-2"> <i class="fa fa-times" aria-hidden="true"></i> </button>
+          </div>
+      </div>
+  </div>
+</div>

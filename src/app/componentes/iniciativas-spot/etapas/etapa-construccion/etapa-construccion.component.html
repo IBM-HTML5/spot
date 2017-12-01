@@ -1,0 +1,204 @@
+<div class="container my-4">
+
+    <!-- Navegación -->
+    <ol class="breadcrumb">
+        <a class="breadcrumb-item" routerLink="/">Iniciativa</a>
+        <a class="breadcrumb-item active">Etapa Construcción</a>
+    </ol>
+
+    <!-- Iniciativa -->
+    <div class="mt-5 mb-4">
+        <h4>Iniciativa:</h4>
+        <p>• Implementar un modelo de soporte 24*7 de los equipos de sistemas, con base en fábricas externas y un modelo de Flexibilización Laboral</p>
+    </div>
+    <hr class="hr-s">
+
+    <!-- Etapa Construcción -->
+    <div class="mt-4">
+    <div class="height" *ngIf="!edit_cons && !adju_cons">
+        <div class="row m-0">
+            <h4>Etapa Construcción:</h4>
+            <button class="btn btn-warning btn-sm ml-auto mr-2" (click)="editarEtapaCons()"> Editar <i class="fa fa-pencil" aria-hidden="true"></i></button>
+            <button class="btn btn-secondary btn-sm mr-2" (click)="adjuntarEtapaCons()"> Adjuntar <i class="fa fa-paperclip" aria-hidden="true"></i> </button>
+        </div>
+        <div class="row m-0 py-3 bt mt-4">
+            <div class="col-4" >
+                Fecha Inicio:
+                <strong>01-01-2017</strong>
+            </div>
+            <div class="col-4">
+                Fecha Termino:
+                <strong>01-01-2017</strong>
+            </div>
+            <div class="col-4">
+                Avance:
+                <strong>10%</strong>
+            </div>
+        </div>
+    </div>
+    <!-- Editar Etapa Construcción -->
+    <form class="alert alert-warning p-3 height" *ngIf="edit_cons" [formGroup]="editarEtapaConsForm" (ngSubmit)="editEtapaConsForm()">
+        <div class="row m-0 mb-3">
+            <h4>Editar etapa Construcción:</h4>
+            <button class="btn btn-warning btn-sm ml-auto mr-2"> Guardar <i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+            <button class="btn btn-secondary btn-sm mr-2" (click)="editarEtapaCons()"> <i class="fa fa-times" aria-hidden="true"></i> </button>
+        </div>
+        <div class="row m-0">
+            <div class="col-4" >
+                <label for="Fecha Inicio" class="fz-1"> Fecha Inicio </label>
+                <input type="date" class="form-control" placeholder="#" >
+            </div>
+            <div class="col-4">
+                <label for="Fecha Inicio" class="fz-1"> Fecha Termino </label>
+                <input type="date" class="form-control" placeholder="#" >
+            </div>
+            <div class="col-4">
+                <label for="Fecha Inicio" class="fz-1"> Avance </label>
+                <input type="text" class="form-control" placeholder="#" disabled>
+            </div>
+        </div>
+    </form>
+    <!-- Archivos Etapa Construcción -->
+    <div class="alert alert-warning p-3 mb-4" *ngIf="adju_cons">
+        <div class="row m-0 mb-3">
+            <h4>Archivos de la etapa Construcción:</h4>
+            <button class="btn btn-warning btn-sm ml-auto mr-2"> Adjuntar <i class="fa fa-paperclip" aria-hidden="true"></i></button>
+            <button class="btn btn-secondary btn-sm mr-2" (click)="adjuntarEtapaCons()"> <i class="fa fa-times" aria-hidden="true"></i> </button>
+        </div>
+        <table class="table table-hover">
+            <thead class="">
+              <tr class="fz-tb">
+                <th class="col-9">Archivo</th>
+                <th class="col-3">Fecha</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>@</td>
+                <td>@</td>
+              </tr>
+            </tbody>
+        </table>
+    </div>
+    </div>
+    <hr class="hr-s">  
+    
+    <!-- Tareas de la etapa Construcción -->
+    <div class="mt-4">
+    <div class="row m-0 mb-4">
+            <h4>Tareas de la etapa Construcción</h4>
+            <button class="btn btn-warning btn-sm ml-auto mr-2" (click)="nuevaTarea()"> Nueva tarea <i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+    </div> 
+    <table datatable class="table" id="example">
+      <thead>
+        <tr class="fz">
+          <th class="hidden-xl-down"></th>
+          <th class="no-sort" width="10" name="prop_ref_no"></th>
+          <th>Tarea</th>
+          <th class="no-sort" name="prop_ref_no">Inicio</th>
+          <th class="no-sort" name="prop_ref_no">Término</th>
+          <th class="no-sort" name="prop_ref_no">Actualización</th>
+          <th class="no-sort" name="prop_ref_no">Avance</th>
+          <th class="no-sort" name="prop_ref_no">Pts. Atención</th>
+          <th class="no-sort" name="prop_ref_no"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="fz">
+          <td class="hidden-xl-down"></td>
+          <td>@</td>
+          <td width="375">Revisar lo realizado a la fecha</td>
+          <td>01-01-2018</td>
+          <td>01-01-2018</td>
+          <td>01-01-2018</td>                    
+          <td>100%</td>
+          <td width="90">
+            <div class="punto-atencion rotar-p rounded-circle ml-auto mr-auto" routerLink="/punto-atencion-construccion/"></div>
+          </td>
+          <td>
+            <button class="btn btn-secondary btn-sm" (click)="editarTarea()"><i class="fa fa-pencil" aria-hidden="true"></i></button>                
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- Nueva Tarea -->
+    <span id="destino"></span>
+    <div class="alert alert-warning p-3 my-4" *ngIf="nueva_tarea">
+        <div class="text-gray-dark text-center">
+            <h5 class="bt2 col-2 ml-auto mr-auto py-1">Nueva Tarea</h5>
+        </div>
+        <div class="row m-0">
+            <div class="mb-3 col-12" >
+                <label for="Fecha Inicio" class="fz-1"> Tarea </label>
+                <input type="text" class="form-control" placeholder="Nombre de la tarea" >
+            </div>
+            <div class="mb-3 col-12" >
+                <label for="Fecha Inicio" class="fz-1"> Detalle de la Tarea </label>
+                <textarea type="date" class="form-control" placeholder="Detalle de la tarea" ></textarea>
+            </div>
+        </div>
+        <div class="row m-0">
+            <div class="col-3" >
+                <label for="Fecha Inicio" class="fz-1"> Fecha Inicio </label>
+                <input type="date" class="form-control" placeholder="#" >
+            </div>
+            <div class="col-3">
+                <label for="Fecha Inicio" class="fz-1"> Fecha Termino </label>
+                <input type="date" class="form-control" placeholder="#" >
+            </div>
+            <div class="col-3">
+                <label for="Fecha Inicio" class="fz-1"> Avance </label>
+                <select class="form-control" id="exampleSelect1" formControlName="linea_estrat">
+                    <option value="" disabled selected>Seleccione el avance</option>
+                    <option *ngFor="let avance of avances">{{ avance }}</option>
+                </select>
+            </div>
+            <!-- Botonera -->
+            <div class="ml-auto mt-auto">
+                <button class="btn btn-warning"> Guardar Tarea <i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+                <button class="btn btn-secondary  mr-2" (click)="nuevaTarea()"> <i class="fa fa-times" aria-hidden="true"></i> </button>
+            </div>
+        </div>
+    </div>
+    <!-- Editar Tarea -->
+    <span id="destino"></span>
+    <div class="alert alert-warning p-3 my-4" *ngIf="editar_tarea">
+        <div class="text-gray-dark text-center">
+            <h5 class="bt2 col-2 ml-auto mr-auto py-1">Editar Tarea</h5>
+        </div>
+        <div class="row m-0">
+            <div class="mb-3 col-12" >
+                <label for="Fecha Inicio" class="fz-1"> Tarea </label>
+                <input type="text" class="form-control" placeholder="Nombre de la tarea" >
+            </div>
+            <div class="mb-3 col-12" >
+                <label for="Fecha Inicio" class="fz-1"> Detalle de la Tarea </label>
+                <textarea type="date" class="form-control" placeholder="Detalle de la tarea" ></textarea>
+            </div>
+        </div>
+        <div class="row m-0">
+            <div class="col-3" >
+                <label for="Fecha Inicio" class="fz-1"> Fecha Inicio </label>
+                <input type="date" class="form-control" placeholder="#" >
+            </div>
+            <div class="col-3">
+                <label for="Fecha Inicio" class="fz-1"> Fecha Termino </label>
+                <input type="date" class="form-control" placeholder="#" >
+            </div>
+            <div class="col-3">
+                <label for="Fecha Inicio" class="fz-1"> Avance </label>
+                <select class="form-control" id="exampleSelect1" formControlName="linea_estrat">
+                    <option value="" disabled selected>Seleccione el avance</option>
+                    <option *ngFor="let avance of avances">{{ avance }}</option>
+                </select>
+            </div>
+            <!-- Botonera -->
+            <div class="ml-auto mt-auto">
+                <button class="btn btn-warning"> Actualizar Tarea <i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+                <button class="btn btn-secondary  mr-2" (click)="editarTarea()"> <i class="fa fa-times" aria-hidden="true"></i> </button>
+            </div>
+        </div>
+    </div>
+
+    </div>
+</div>

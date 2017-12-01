@@ -1,0 +1,277 @@
+<div class="container my-4">
+
+    <!-- Navegación -->
+    <ol class="breadcrumb">
+        <a class="breadcrumb-item" routerLink="/">Iniciativa</a>
+        <a class="breadcrumb-item active">Etapa Definición</a>
+    </ol>
+
+    <!-- Iniciativa -->
+    <div class="mt-5 mb-4">
+        <h4>Iniciativa:</h4>
+        <p>• Normalizar funcionalidades que originan sobreconsumos de horas desechables, reduciendo los procesos manuales vinculados</p>
+    </div>
+    <hr class="hr-s">
+    <!-- Nueva Etapa Definición - Se Mostrará siempre y cuando la etapa no haya sido iniciada -->
+    <form class="alert alert-warning p-3 height" *ngIf="datosEtp.fecIni==-1" [formGroup]="insertEtForm" (ngSubmit)="enviarNuevaEtapaForm()">
+        <div class="row m-0 mb-3">
+            <h4>Nueva etapa Definición:</h4>
+            <button class="btn btn-warning btn-sm ml-auto mr-2"> Agregar <i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+            <button class="btn btn-secondary btn-sm mr-2" (click)="editarEtapaDef()"> <i class="fa fa-times" aria-hidden="true"></i> </button>
+        </div>
+        <div class="row m-0">
+            <div class="col-4" >
+                <label for="Fecha Inicio" class="fz-1"> Fecha Inicio </label>
+                <my-date-picker name="fecIni" [options]="myDatePickerOptions"
+                                formControlName="fecIni" placeholder="Seleccione fecha">
+                </my-date-picker>
+            </div>
+            <div class="col-4">
+                <label for="Fecha Inicio" class="fz-1"> Fecha Termino </label>
+                <my-date-picker name="fecTer" [options]="myDatePickerOptions"
+                                formControlName="fecTer" placeholder="Seleccione fecha">
+                </my-date-picker>
+            </div>
+            <div class="col-4">
+                <label for="Fecha Inicio" class="fz-1"> Avance </label>
+                <input type="text" class="form-control" placeholder="" disabled>
+            </div>
+        </div>
+    </form>
+    <!-- Etapa Definición -->
+    <div *ngIf="datosEtp.fecIni!=-1"><!-- DIV PARA OCULTAR ELEMENTOS EN CASO DE QUE NO SE HAYA INICIADO LA ETAPA-->
+    <div class="mt-4">
+    <div class="height" *ngIf="!verEditEtp && !adjuEtp">
+        <div class="row m-0">
+            <h4>Etapa Definición:</h4>
+            <button class="btn btn-warning btn-sm ml-auto mr-2" (click)="verEditarEtapa()"> Editar <i class="fa fa-pencil" aria-hidden="true"></i></button>
+            <button class="btn btn-secondary btn-sm mr-2" (click)="adjuntarEtapa()"> Adjuntar <i class="fa fa-paperclip" aria-hidden="true"></i> </button>
+        </div>
+        <div class="row m-0 py-3 bt mt-4">
+            <div class="col-4" >
+                Fecha Inicio:
+                <strong> {{ datosEtp.fecIni }} </strong>
+            </div>
+            <div class="col-4">
+                Fecha Termino:
+                <strong> {{ datosEtp.fecTer }} </strong>
+            </div>
+            <div class="col-4">
+                Avance:
+                <strong> {{ datosEtp.avn }} % </strong>
+            </div>
+        </div>
+    </div>
+    <!-- Editar Etapa Definición -->
+    <form class="alert alert-warning p-3 height" *ngIf="verEditEtp" [formGroup]="editEtForm" (ngSubmit)="enviarEditEtapaForm()">
+        <div class="row m-0 mb-3">
+            <h4>Editar etapa Definición:</h4>
+            <button class="btn btn-warning btn-sm ml-auto mr-2" [disabled]="!editEtForm.valid"> Guardar <i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+            <button class="btn btn-secondary btn-sm mr-2" (click)="verEditarEtapa()"> <i class="fa fa-times" aria-hidden="true"></i> </button>
+        </div>
+        <div class="row m-0">
+            <div class="col-4">
+                <label for="Fecha Inicio" class="fz-1"> Fecha Inicio </label>
+                    <my-date-picker name="fecIni" [options]="myDatePickerOptions"
+                                    formControlName="fecIni" placeholder="{{datosEtp.fecIni}}">
+                    </my-date-picker>
+            </div>
+            <div class="col-4">
+                <label for="Fecha Inicio" class="fz-1"> Fecha Termino </label>
+                    <my-date-picker name="fecTer" [options]="myDatePickerOptions"
+                                    formControlName="fecTer" placeholder="{{datosEtp.fecTer}}">
+                    </my-date-picker>
+            </div>
+            <div class="col-4">
+                <label for="Fecha Inicio" class="fz-1"> Avance </label>
+                <input type="text" class="form-control" formControlName="avn" [ngModel]="datosEtp.avn + ' %'">
+            </div>
+        </div>
+    </form>
+    <!-- Archivos Etapa Definición -->
+    <div class="alert alert-warning p-3 mb-4" *ngIf="adjuEtp">
+        <div class="row m-0 mb-3">
+            <h4>Archivos de la etapa Definición:</h4>
+            <button class="btn btn-warning btn-sm ml-auto mr-2"> Adjuntar <i class="fa fa-paperclip" aria-hidden="true"></i></button>
+            <button class="btn btn-secondary btn-sm mr-2" (click)="adjuntarEtapa()"> <i class="fa fa-times" aria-hidden="true"></i> </button>
+        </div>
+        <table class="table table-hover">
+            <thead class="">
+              <tr class="fz-tb">
+                <th class="col-9">Archivo</th>
+                <th class="col-3">Fecha</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>@</td>
+                <td>@</td>
+              </tr>
+            </tbody>
+        </table>
+    </div>
+    </div>
+    <hr class="hr-s">  
+    
+    <!-- Tareas de la etapa Definición -->
+    <div class="mt-4">
+    <div class="row m-0 mb-4">
+            <h4>Tareas de la etapa Definición</h4>
+            <button class="btn btn-warning btn-sm ml-auto mr-2" (click)="nuevaTarea()"> Nueva tarea <i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+    </div>
+    
+    <!-- Carga Spinner mientras se cargan los datos de la Tabla -->
+    <div *ngIf="cargando" class="my-5">
+        <div class="cargando ml-auto mr-auto"></div>
+        <div class="text-center mt-2">cargando datos ...</div>
+    </div>
+
+    <div *ngIf="!cargando">
+    <table datatable class="table" id="example">
+      <thead>
+        <tr class="fz">
+          <th class="hidden-xl-down"></th>
+          <th class="no-sort" width="10" name="prop_ref_no"></th>
+          <th width="400">Tarea</th>
+          <th class="no-sort" name="prop_ref_no">Inicio</th>
+          <th class="no-sort" name="prop_ref_no">Término</th>
+          <th class="no-sort" name="prop_ref_no">Actualización</th>
+          <th class="no-sort" name="prop_ref_no">Avance</th>
+          <th class="no-sort" name="prop_ref_no">Pts. Atención</th>
+          <th class="no-sort" name="prop_ref_no"></th>
+        </tr>
+      </thead>
+      <tbody *ngIf="contador > 0">
+        <tr class="fz" *ngFor="let dato of datosTar">
+          <td class="hidden-xl-down"></td>
+          <td>
+            <!-- Botón con alerta reeplanificaciones --> 
+            <button *ngIf="dato.fecrRpl > 0" type="button" class="btn btn-secondary btn-sm cursor" 
+                    title="Tiene {{dato.fecrRpl}} replanificación(es)" (click)="valReplan(dato.id, dato.fecrRpl)">
+                <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+            </button> 
+          </td>
+          <td> {{ dato.nom | diccionario:true }} </td>
+          <td> {{ dato.fecIni }} </td>
+          <td> {{ dato.fecTer }} </td>
+          <td> {{ dato.fecAct }} </td>                    
+          <td> {{ dato.avn }} % </td>
+          <td>
+            <div class="punto-atencion rotar-p rounded-circle ml-auto mr-auto" routerLink="/punto-atencion-definicion/{{dato.id}}"></div>
+          </td>
+          <td>
+            <button class="btn btn-secondary btn-sm" (click)="editarTarea()"><i class="fa fa-pencil" aria-hidden="true"></i></button>                
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    
+    <!-- Nueva Tarea -->
+    <span id="destino"></span>
+    <form [formGroup]="insertTareaForm" (ngSubmit)="enviarNuevaTareaForm()">
+    <div class="alert alert-warning p-3 my-4" *ngIf="nueva_tarea">
+        <div class="text-gray-dark text-center">
+            <h5 class="bt2 col-2 ml-auto mr-auto py-1">Nueva Tarea</h5>
+        </div>
+        <div class="row m-0">
+            <div class="mb-3 col-12" >
+                <label for="Fecha Inicio" class="fz-1"> Tarea </label>
+                <input type="text" class="form-control" formControlName="nom" placeholder="Nombre de la tarea" maxlength="200">
+            </div>
+            <div class="mb-3 col-12" >
+                <label for="Fecha Inicio" class="fz-1"> Detalle de la Tarea </label>
+                <textarea type="date" class="form-control" formControlName="des" placeholder="Detalle de la tarea" maxlength="1900"></textarea>
+            </div>
+        </div>
+        <div class="row m-0">
+            <div class="col-3" >
+                <label for="Fecha Inicio" class="fz-1"> Fecha Inicio </label>
+                    <my-date-picker name="fecIni" [options]="myDatePickerOptions"
+                                    formControlName="fecIni" placeholder="Seleccione Fecha">
+                    </my-date-picker>
+            </div>
+            <div class="col-3">
+                <label for="Fecha Termino" class="fz-1"> Fecha Termino </label>
+                <my-date-picker name="fecTer" [options]="myDatePickerOptions"
+                                formControlName="fecTer" placeholder="Seleccione Fecha">
+                </my-date-picker>
+            </div>
+            <div class="col-3">
+                <label for="Fecha Inicio" class="fz-1"> Avance </label>
+                <select class="form-control" id="exampleSelect1" formControlName="avn">
+                    <option value="" disabled selected>Seleccione el avance</option>
+                    <option value="0"> 0 % </option>
+                    <option value="5"> 5 % </option>
+                    <option value="10"> 10 % </option>
+                    <option value="15"> 15 % </option>
+                    <option value="20"> 20 % </option>
+                    <option value="25"> 25 % </option>
+                    <option value="30"> 30 % </option>
+                    <option value="35"> 35 % </option>
+                    <option value="40"> 40 % </option>
+                    <option value="45"> 45 % </option>
+                    <option value="50"> 50 % </option>
+                    <option value="55"> 55 % </option>
+                    <option value="60"> 60 % </option>
+                    <option value="65"> 65 % </option>
+                    <option value="70"> 70 % </option>
+                    <option value="75"> 75 % </option>
+                    <option value="80"> 80 % </option>
+                    <option value="85"> 85 % </option>
+                    <option value="90"> 90 % </option>
+                    <option value="95"> 95 % </option>
+                    <option value="100"> 100 % </option>
+                </select>
+            </div>
+            <!-- Botonera -->
+            <div class="ml-auto mt-auto">
+                <button class="btn btn-warning"> Guardar Tarea <i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+                <button class="btn btn-secondary  mr-2" (click)="nuevaTarea()"> <i class="fa fa-times" aria-hidden="true"></i> </button>
+            </div>
+        </div>
+    </div>
+    </form>
+    <!-- Editar Tarea  FALTA CREAR FORM-->
+    <span id="destino"></span>
+    <div class="alert alert-warning p-3 my-4" *ngIf="editar_tarea">
+        <div class="text-gray-dark text-center">
+            <h5 class="bt2 col-2 ml-auto mr-auto py-1">Editar Tarea</h5>
+        </div>
+        <div class="row m-0">
+            <div class="mb-3 col-12" >
+                <label for="Fecha Inicio" class="fz-1"> Tarea </label>
+                <input type="text" class="form-control" placeholder="Nombre de la tarea" >
+            </div>
+            <div class="mb-3 col-12" >
+                <label for="Fecha Inicio" class="fz-1"> Detalle de la Tarea </label>
+                <textarea type="date" class="form-control" placeholder="Detalle de la tarea" ></textarea>
+            </div>
+        </div>
+        <div class="row m-0">
+            <div class="col-3" >
+                <label for="Fecha Inicio" class="fz-1"> Fecha Inicio </label>
+                <input type="date" class="form-control" placeholder="#" >
+            </div>
+            <div class="col-3">
+                <label for="Fecha Inicio" class="fz-1"> Fecha Termino </label>
+                <input type="date" class="form-control" placeholder="#" >
+            </div>
+            <div class="col-3">
+                <label for="Fecha Inicio" class="fz-1"> Avance </label>
+                <select class="form-control" id="exampleSelect1" formControlName="linea_estrat">
+                    <option value="" disabled selected>Seleccione el avance</option>
+                    <option *ngFor="let avance of avances">{{ avance }}</option>
+                </select>
+            </div>
+            <!-- Botonera -->
+            <div class="ml-auto mt-auto">
+                <button class="btn btn-warning"> Actualizar Tarea <i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+                <button class="btn btn-secondary  mr-2" (click)="editarTarea()"> <i class="fa fa-times" aria-hidden="true"></i> </button>
+            </div>
+        </div>
+    </div>
+
+    </div>
+</div>
+</div>
